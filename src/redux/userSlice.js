@@ -10,7 +10,7 @@ const initialState = {
 const slice = createSlice({
   name: 'user',
   initialState,
-  redusers: {
+  reduсers: {
     login: (state, { payload }) => {
       state.name = payload;
       state.isLoggedIn = true;

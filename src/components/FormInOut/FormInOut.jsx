@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import s from '../FormInOut/FormInOut.module.css';
 import { Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-export const Form = ({ onDataSubmit, formType, values }) => {
-  const [type, setType] = useState('password');
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { PassInputField } from './PassInputField';
+import { InputField } from './inputField';
+
+export const Form = ({ onDataSubmit, formType, values, schema }) => {
   const {
     register,
     reset,
@@ -12,10 +15,10 @@ export const Form = ({ onDataSubmit, formType, values }) => {
     formState: { errors },
   } = useForm({
     defaultValues: values,
+    resolver: yupResolver(schema),
   });
 
   const submit = data => {
-    console.log(data);
     onDataSubmit(data);
     reset();
   };
@@ -24,73 +27,36 @@ export const Form = ({ onDataSubmit, formType, values }) => {
     <div className={s.wrapperForm}>
       <form className={s.form} onSubmit={handleSubmit(submit)}>
         {formType !== 'login' && (
-          <div className={s.inputField}>
-            <label htmlFor="name">Name:</label>
-            <input
-              id="name"
-              placeholder="Enter name..."
-              {...register('name', {
-                required: { message: 'Name is required!', value: true },
-                minLength: {
-                  value: 3,
-                  message: 'Name must be more than 3 chars!',
-                },
-                maxLength: {
-                  value: 12,
-                  message: 'Name must be less than 12 chars!',
-                },
-              })}
-            />
-            {errors?.name && <span>{errors.name.message}</span>}
-          </div>
+          <InputField
+            register={register}
+            errors={errors}
+            label="Name:"
+            placeholder="Enter name"
+            name="name"
+          />
         )}
-        <div className={s.inputField}>
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            placeholder="Enter email..."
-            {...register('email', {
-              required: { message: 'Email is required!', value: true },
-              minLength: {
-                value: 10,
-                message: 'Name must be more than 10 chars!',
-              },
-              maxLength: {
-                value: 24,
-                message: 'Name must be less than 24 chars!',
-              },
-            })}
-            type="email"
-          />
-          {errors?.email && <span>{errors.email.message}</span>}
-        </div>
-        <div className={s.inputField}>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            placeholder="Enter pass..."
-            {...register('password', {
-              required: { message: 'Password is required!', value: true },
-              minLength: {
-                value: 6,
-                message: 'Password must be more than 6 chars!',
-              },
-              maxLength: {
-                value: 20,
-                message: 'Password must be less than 20 chars!',
-              },
-            })}
-            type={type}
-          />
-          <div
-            onClick={() => setType(type === 'password' ? 'text' : 'password')}
-            className={s.iconBtn}
-          >
-            {type === 'password' ? <FaEyeSlash /> : <FaEye />}
-          </div>
+        <InputField
+          register={register}
+          errors={errors}
+          label="Email:"
+          placeholder="Enter email"
+          name="email"
+        />
 
-          {errors?.password && <span>{errors.password.message}</span>}
-        </div>
+        <PassInputField
+          register={register}
+          errors={errors}
+          label="Password:"
+          placeholder="Enter password"
+          name="password"
+        />
+        <PassInputField
+          register={register}
+          errors={errors}
+          label="Confirm pass:"
+          placeholder="Enter password"
+          name="confirmPassword"
+        />
         <button>{formType === 'login' ? 'Login' : 'Register'}</button>
         <p className={s.link}>
           {formType !== 'login'

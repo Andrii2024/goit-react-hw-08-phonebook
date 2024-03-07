@@ -1,5 +1,10 @@
-import { registerThunk, loginThunk, logoutThunk } from './operations';
-import { createSlice } from '@reduxjs/toolkit';
+import {
+  registerThunk,
+  loginThunk,
+  logoutThunk,
+  refreshThunk,
+} from './operations';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 const initialState = {
   user: {
     name: '',
@@ -9,6 +14,7 @@ const initialState = {
   loading: false,
   error: false,
   isLoggedIn: false,
+  isRefresh: false,
 };
 
 const slice = createSlice({
@@ -18,25 +24,34 @@ const slice = createSlice({
     selectUser: state => state.user,
     selectIsLoggedIn: state => state.isLoggedIn,
     selectToken: state => state.isLoggedIn,
+    selectIsRefresh: state => state.isRefresh,
   },
   extraReducers: builder => {
     builder
-      .addCase(registerThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
-        state.token = payload.token;
+      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
+        state.user.name = payload.name;
+        state.user.email = payload.email;
         state.isLoggedIn = true;
+        state.isRefresh = false;
       })
-      .addCase(loginThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
-        state.token = payload.token;
-        state.isLoggedIn = true;
+      .addCase(refreshThunk.pending, state => {
+        state.isRefresh = true;
       })
+      .addCase(refreshThunk.rejected, state => {
+        state.isRefresh = false;
+      })
+
       .addCase(logoutThunk.fulfilled, state => {
         return initialState;
+      })
+      .addMatcher(isAnyOf(registerThunk, loginThunk), (state, { payload }) => {
+        state.user.name = payload.user.name;
+        state.user.email = payload.user.email;
+        state.token = payload.token;
+        state.isLoggedIn = true;
       });
   },
 });
 export const reactReducer = slice.reducer;
-export const { selectIsLoggedIn, selectUser, selectToken } = slice.selectors;
+export const { selectIsLoggedIn, selectUser, selectToken, selectIsRefresh } =
+  slice.selectors;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const contactsApi = axios.create({
-  baseURL: 'https://connections-api.herokuapp.com/',
+  baseURL: 'https://65e5cbd3d7f0758a76e76b61.mockapi.io/',
 });
 
 export const setToken = token => {

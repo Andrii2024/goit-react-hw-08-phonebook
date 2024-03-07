@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { contactsApi, removeToken, setToken } from 'axiosConfig/contactsApi';
+import { userApi, removeToken, setToken } from 'axiosConfig/userApi';
 
 export const registerThunk = createAsyncThunk(
   'register',
   async (credential, thunkApi) => {
     try {
-      const { data } = await contactsApi.post('users/signup', credential);
+      const { data } = await userApi.post('users/signup', credential);
       setToken(data.token);
       return data;
     } catch (error) {
@@ -17,7 +17,7 @@ export const loginThunk = createAsyncThunk(
   'login',
   async (credentials, thunkApi) => {
     try {
-      const { data } = await contactsApi.post('users/login', credentials);
+      const { data } = await userApi.post('users/login', credentials);
       setToken(data.token);
       return data;
     } catch (error) {
@@ -28,8 +28,22 @@ export const loginThunk = createAsyncThunk(
 
 export const logoutThunk = createAsyncThunk('logout', async (_, thunkApi) => {
   try {
-    await contactsApi.post('users/logout');
+    await userApi.post('users/logout');
     removeToken();
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
+
+export const refreshThunk = createAsyncThunk('refresh', async (_, thunkApi) => {
+  const savedToken = thunkApi.getState().react.token;
+  if (!savedToken) {
+    return thunkApi.rejectWithValue('Token is not exist');
+  }
+  try {
+    setToken(savedToken);
+    const { data } = await userApi.get('/users/');
+    return data;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
   }

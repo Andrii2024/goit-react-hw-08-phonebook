@@ -4,6 +4,7 @@ import s from './Nav.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutThunk } from '../../redux/auth/operations';
 import { selectIsLoggedIn, selectUser } from '../../redux/auth/sliceReact';
+
 export const Nav = () => {
   const { email } = useSelector(selectUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -18,6 +19,9 @@ export const Nav = () => {
         <NavLink className={s.navLink} to="/">
           Home
         </NavLink>
+        <NavLink className={s.navLink} to="/main">
+          Main
+        </NavLink>
 
         {!isLoggedIn && (
           <>
@@ -30,17 +34,12 @@ export const Nav = () => {
           </>
         )}
         {isLoggedIn && (
-          <>
-            <NavLink className={s.navLink} to="/main">
-              Main
-            </NavLink>
-            <button
-              className={s.navButton}
-              onClick={() => dispatch(logoutThunk())}
-            >
-              Exit
-            </button>
-          </>
+          <button
+            className={s.navButton}
+            onClick={() => dispatch(logoutThunk())}
+          >
+            Logout
+          </button>
         )}
       </nav>
     </div>
