@@ -1,0 +1,17 @@
+import { Form } from 'components/FormInOut/FormInOut';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { registerThunk } from '../../redux/auth/operations';
+
+export const Register = () => {
+  const dispatch = useDispatch();
+  const handleSubmit = data => {
+    dispatch(registerThunk(data));
+  };
+
+  return (
+    <div>
+      <Form onDataSubmit={handleSubmit} />
+    </div>
+  );
+};

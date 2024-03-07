@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from '../redux/phonebook/filtersSlice';
-import { ContactForm } from './ContactForm';
-import { ContactList } from './ContactList';
-import { Filter } from './Filter';
-import { StyleH1, StyledWrapper } from './App.styled';
+import { setFilter } from '../../redux/phonebook/filtersSlice';
+import { ContactForm } from '../../pages/MainBook/ContactForm';
+import { ContactList } from '../../pages/MainBook/ContactList';
+import { Filter } from '../../pages/MainBook/Filter';
+import { StyleH1, StyledWrapper } from '../MainBook/Main.styled';
 import {
   fetchContactsThunk,
   addContactThunk,
   deleteContactThunk,
-} from '../redux/articles/operations';
-import { selectFilter } from '../redux/phonebook/filtersSlice';
-import { selectContacts } from '../redux/phonebook/contactsSlice';
+} from '../../redux/articles/operations';
+import { selectFilter } from '../../redux/phonebook/filtersSlice';
+import { selectContacts } from '../../redux/phonebook/contactsSlice';
 
-export const App = () => {
+export const Main = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);

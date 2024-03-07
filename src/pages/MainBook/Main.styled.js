@@ -8,8 +8,7 @@ export const StyledWrapper = styled.div`
   background-color: #34a1b6;
 
   border-radius: 10px;
-  margin: 40px;
-  margin-left: 200px;
+  margin: 40px auto;
   box-shadow: 1px 2px 5px 4px lightblue;
   gap: 10px;
 `;

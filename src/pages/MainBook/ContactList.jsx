@@ -1,15 +1,15 @@
 import React from 'react';
-import { StyledButtonList, StyledLi } from './App.styled';
+import { StyledButtonList, StyledLi } from './Main.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectContactsError,
   selectContactsLoading,
-} from '../redux/phonebook/contactsSlice';
+} from '../../redux/phonebook/contactsSlice';
 
 import { Notification } from './Notific';
-import { deleteContactThunk } from '../redux/articles/operations';
-import { Loader } from './Loader/Loader';
-import { selectFilteredContacts } from '../redux/articles/selectors';
+import { deleteContactThunk } from '../../redux/articles/operations';
+import { Loader } from '../../components/Loader/Loader';
+import { selectFilteredContacts } from '../../redux/articles/selectors';
 
 export const ContactList = () => {
   const dispatch = useDispatch();

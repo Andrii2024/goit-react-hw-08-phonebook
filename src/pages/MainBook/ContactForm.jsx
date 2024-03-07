@@ -5,10 +5,10 @@ import {
   StyledForm,
   StyledInput,
   StyledLabel,
-} from './App.styled';
+} from './Main.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from '../redux/phonebook/contactsSlice';
-import { addContactThunk } from '../redux/articles/operations';
+import { selectContacts } from '../../redux/phonebook/contactsSlice';
+import { addContactThunk } from '../../redux/articles/operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');

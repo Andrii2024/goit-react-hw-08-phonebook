@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { StyledInput, StyledLabel } from './App.styled';
+import { StyledInput, StyledLabel } from './Main.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFilter, setFilter } from '../redux/phonebook/filtersSlice';
+import { selectFilter, setFilter } from '../../redux/phonebook/filtersSlice';
 
 export const Filter = () => {
   const dispatch = useDispatch();
