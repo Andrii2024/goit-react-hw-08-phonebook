@@ -3,9 +3,10 @@ import { userApi, removeToken, setToken } from 'axiosConfig/userApi';
 
 export const registerThunk = createAsyncThunk(
   'register',
-  async (credential, thunkApi) => {
+  async (credentials, thunkApi) => {
+    console.log('Credentials:', credentials);
     try {
-      const { data } = await userApi.post('users/signup', credential);
+      const { data } = await userApi.post('signup', credentials);
       setToken(data.token);
       return data;
     } catch (error) {
@@ -17,7 +18,7 @@ export const loginThunk = createAsyncThunk(
   'login',
   async (credentials, thunkApi) => {
     try {
-      const { data } = await userApi.post('users/login', credentials);
+      const { data } = await userApi.post('login', credentials);
       setToken(data.token);
       return data;
     } catch (error) {
@@ -28,7 +29,7 @@ export const loginThunk = createAsyncThunk(
 
 export const logoutThunk = createAsyncThunk('logout', async (_, thunkApi) => {
   try {
-    await userApi.post('users/logout');
+    await userApi.post('logout');
     removeToken();
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
@@ -42,7 +43,7 @@ export const refreshThunk = createAsyncThunk('refresh', async (_, thunkApi) => {
   }
   try {
     setToken(savedToken);
-    const { data } = await userApi.get('/users/current');
+    const { data } = await userApi.get('current');
     return data;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
