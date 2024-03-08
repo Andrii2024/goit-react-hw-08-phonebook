@@ -23,7 +23,7 @@ export const Login = () => {
   };
   const value = {
     email: 'AndriiUA@gmail.com',
-    password: 'AndriiUA@gmail.com',
+    password: 'AndriiUA@gmail',
   };
   return (
     <div>

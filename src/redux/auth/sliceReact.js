@@ -18,12 +18,12 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'react',
+  name: 'auth',
   initialState,
   selectors: {
     selectUser: state => state.user,
     selectIsLoggedIn: state => state.isLoggedIn,
-    selectToken: state => state.isLoggedIn,
+    selectToken: state => state.token,
     selectIsRefresh: state => state.isRefresh,
   },
   extraReducers: builder => {
@@ -44,14 +44,17 @@ const slice = createSlice({
       .addCase(logoutThunk.fulfilled, state => {
         return initialState;
       })
-      .addMatcher(isAnyOf(registerThunk, loginThunk), (state, { payload }) => {
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
-        state.token = payload.token;
-        state.isLoggedIn = true;
-      });
+      .addMatcher(
+        isAnyOf(registerThunk.fulfilled, loginThunk.fulfilled),
+        (state, { payload }) => {
+          state.user.name = payload.user.name;
+          state.user.email = payload.user.email;
+          state.token = payload.token;
+          state.isLoggedIn = true;
+        }
+      );
   },
 });
-export const reactReducer = slice.reducer;
+export const authReducer = slice.reducer;
 export const { selectIsLoggedIn, selectUser, selectToken, selectIsRefresh } =
   slice.selectors;

@@ -1,8 +1,7 @@
 import { Layout } from 'components/Layout';
-
 import React, { useEffect } from 'react';
+
 import { Route, Routes } from 'react-router-dom';
-import './index.css';
 import { Home, Login, Main, NotFound, Register } from 'pages';
 import { useDispatch, useSelector } from 'react-redux';
 import { Preloader } from './components/Preloader/Preloader';
@@ -10,6 +9,8 @@ import { PrivateRoute } from './routes/PrivateRoute';
 import { PublicRoute } from './routes/PublicRoute';
 import { refreshThunk } from './redux/auth/operations';
 import { selectIsRefresh } from './redux/auth/sliceReact';
+import './index.css';
+
 export const App = () => {
   const isRefresh = useSelector(selectIsRefresh);
   const dispatch = useDispatch();
