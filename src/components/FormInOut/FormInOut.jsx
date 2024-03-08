@@ -50,13 +50,13 @@ export const Form = ({ onDataSubmit, formType, values, schema }) => {
           placeholder="Enter password"
           name="password"
         />
-        <PassInputField
+        {/* <PassInputField
           register={register}
           errors={errors}
           label="Confirm pass:"
           placeholder="Enter password"
           name="confirmPassword"
-        />
+        /> */}
         <button>{formType === 'login' ? 'Login' : 'Register'}</button>
         <p className={s.link}>
           {formType !== 'login'

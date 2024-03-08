@@ -7,9 +7,9 @@ import {
 } from '../../redux/phonebook/contactsSlice';
 
 import { Notification } from './Notific';
-import { deleteContactThunk } from '../../redux/articles/operations';
+import { deleteContactThunk } from '../../redux/phonebook/operations';
 import { Loader } from '../../components/Loader/Loader';
-import { selectFilteredContacts } from '../../redux/articles/selectors';
+import { selectFilteredContacts } from '../../redux/phonebook/selectors';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const ContactList = () => {
         <ul>
           {filteredContacts.map(contact => (
             <StyledLi key={contact.id}>
-              {contact.name} - {contact.number}
+              {contact.name} - {contact.phone}
               <StyledButtonList
                 onClick={() => dispatch(deleteContactThunk(contact.id))}
               >

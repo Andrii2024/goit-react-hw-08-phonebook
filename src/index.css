@@ -10,7 +10,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   margin-top: 150px;
-  max-width: 1280px;
 }
 
 code {

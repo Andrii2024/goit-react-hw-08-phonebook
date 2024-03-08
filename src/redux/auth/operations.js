@@ -4,9 +4,8 @@ import { userApi, removeToken, setToken } from 'axiosConfig/userApi';
 export const registerThunk = createAsyncThunk(
   'register',
   async (credentials, thunkApi) => {
-    console.log('Credentials:', credentials);
     try {
-      const { data } = await userApi.post('signup', credentials);
+      const { data } = await userApi.post('users/signup', credentials);
       setToken(data.token);
       return data;
     } catch (error) {
@@ -18,7 +17,7 @@ export const loginThunk = createAsyncThunk(
   'login',
   async (credentials, thunkApi) => {
     try {
-      const { data } = await userApi.post('login', credentials);
+      const { data } = await userApi.post('users/login', credentials);
       setToken(data.token);
       return data;
     } catch (error) {
@@ -29,7 +28,7 @@ export const loginThunk = createAsyncThunk(
 
 export const logoutThunk = createAsyncThunk('logout', async (_, thunkApi) => {
   try {
-    await userApi.post('logout');
+    await userApi.post('users/logout');
     removeToken();
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
@@ -43,7 +42,7 @@ export const refreshThunk = createAsyncThunk('refresh', async (_, thunkApi) => {
   }
   try {
     setToken(savedToken);
-    const { data } = await userApi.get('current');
+    const { data } = await userApi.get('users/current');
     return data;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);

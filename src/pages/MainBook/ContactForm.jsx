@@ -8,7 +8,7 @@ import {
 } from './Main.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from '../../redux/phonebook/contactsSlice';
-import { addContactThunk } from '../../redux/articles/operations';
+import { addContactThunk } from '../../redux/phonebook/operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
@@ -41,9 +41,8 @@ export const ContactForm = () => {
 
     dispatch(
       addContactThunk({
-        id: nanoid(),
         name: name.trim(),
-        number: number.trim(),
+        phone: number.trim(),
       })
     );
 

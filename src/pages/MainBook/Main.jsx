@@ -9,7 +9,7 @@ import {
   fetchContactsThunk,
   addContactThunk,
   deleteContactThunk,
-} from '../../redux/articles/operations';
+} from '../../redux/phonebook/operations';
 import { selectFilter } from '../../redux/phonebook/filtersSlice';
 import { selectContacts } from '../../redux/phonebook/contactsSlice';
 

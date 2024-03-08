@@ -21,7 +21,7 @@ export const Login = () => {
         toast.error('Credentials is not valid');
       });
   };
-  const value = {
+  const values = {
     email: 'AndriiUA@gmail.com',
     password: 'AndriiUA@gmail',
   };
@@ -31,7 +31,7 @@ export const Login = () => {
         formType="login"
         schema={loginSchema}
         onDataSubmit={handleSubmit}
-        values={{ value }}
+        values={{ values }}
       />
     </div>
   );

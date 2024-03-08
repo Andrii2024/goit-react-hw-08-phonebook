@@ -16,8 +16,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { setupListeners } from '@reduxjs/toolkit/query/react';
-
 const persistConfig = {
   key: 'auth',
   version: 1,
@@ -33,7 +31,6 @@ export const store = configureStore({
     user: userReducer,
     auth: persistedReducer,
   },
-
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -43,4 +40,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-setupListeners(store.dispatch);
