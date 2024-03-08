@@ -42,7 +42,7 @@ export const ContactForm = () => {
     dispatch(
       addContactThunk({
         name: name.trim(),
-        phone: number.trim(),
+        number: number.trim(),
       })
     );
 
